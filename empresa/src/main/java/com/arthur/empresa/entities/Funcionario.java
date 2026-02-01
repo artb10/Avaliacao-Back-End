@@ -1,7 +1,5 @@
 package com.arthur.empresa.entities;
 
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;

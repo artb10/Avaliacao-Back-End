@@ -25,7 +25,7 @@ public class FuncionarioController {
 	@Autowired
 	private FuncionarioService service;
 	
-	@GetMapping(value = "{id}")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<Funcionario> procurarPorId(@PathVariable Long id){
 		Funcionario func = service.procurarPorId(id);
 		
@@ -39,8 +39,8 @@ public class FuncionarioController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> criarFuncionario(@PathVariable Long id, @RequestBody Funcionario func){
-		String response = service.editarFuncionario(id, func);
+	public ResponseEntity<String> criarFuncionario(@RequestBody Funcionario func){
+		String response = service.criarFuncionario(func);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	

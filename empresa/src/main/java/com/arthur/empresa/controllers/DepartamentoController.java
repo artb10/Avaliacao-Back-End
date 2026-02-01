@@ -23,7 +23,7 @@ public class DepartamentoController {
 	@Autowired
 	private DepartamentoService service;
 	
-	@GetMapping(value = "{id}")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<Departamento> procurarPorId(@PathVariable Long id){
 		Departamento dpto = service.procurarPorId(id);
 		
@@ -37,8 +37,8 @@ public class DepartamentoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> criarDepartamento(@PathVariable Long id, @RequestBody Departamento dpto){
-		String response = service.editarDepartamento(id, dpto);
+	public ResponseEntity<String> criarDepartamento(@RequestBody Departamento dpto){
+		String response = service.criarDepartamento(dpto);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
