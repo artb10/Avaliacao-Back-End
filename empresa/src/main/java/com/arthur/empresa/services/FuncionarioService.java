@@ -42,7 +42,7 @@ public class FuncionarioService {
 		
 	}
 	
-	public String editarDepartamento(Long id, Funcionario func) {
+	public String editarFuncionario(Long id, Funcionario func) {
 		Funcionario response = procurarPorId(id);
 		
 		if(func.getEmail() != null) {
@@ -54,7 +54,7 @@ public class FuncionarioService {
 		}
 		
 		repository.save(response);
-		return "Departamento atualizado com sucesso";
+		return "Funcionario atualizado com sucesso";
 	}
 	
 	public String deletarFuncionario(Long id) {
