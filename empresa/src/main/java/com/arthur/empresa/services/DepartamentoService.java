@@ -45,11 +45,11 @@ public class DepartamentoService {
 	public String editarDepartamento(Long id, Departamento dpto) {
 		Departamento response = procurarPorId(id);
 		
-		if(dpto.getEmail() != null) {
+		if(dpto.getEmail() != null || !dpto.getEmail().isBlank()) {
 			response.setEmail(dpto.getEmail());
 		}
 		
-		if(dpto.getNome() != null) {
+		if(dpto.getNome() != null || !dpto.getNome().isBlank()) {
 			response.setNome(dpto.getNome());
 		}
 		

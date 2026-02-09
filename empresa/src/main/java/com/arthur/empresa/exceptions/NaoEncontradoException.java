@@ -1,7 +1,9 @@
 package com.arthur.empresa.exceptions;
 
 public class NaoEncontradoException extends RuntimeException{
-	private static final long serialVersionUid = 1L;
+
+	private static final long serialVersionUID = 1L;
+
 	
 	public NaoEncontradoException(String msg) {
 		super(msg);

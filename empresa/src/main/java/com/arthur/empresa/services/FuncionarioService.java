@@ -45,11 +45,11 @@ public class FuncionarioService {
 	public String editarFuncionario(Long id, Funcionario func) {
 		Funcionario response = procurarPorId(id);
 		
-		if(func.getEmail() != null) {
+		if(func.getEmail() != null || !func.getNome().isBlank()) {
 			response.setEmail(func.getEmail());
 		}
 		
-		if(func.getNome() != null) {
+		if(func.getNome() != null || !func.getNome().isBlank()) {
 			response.setNome(func.getNome());
 		}
 		
