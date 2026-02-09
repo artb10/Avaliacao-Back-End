@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.arthur.empresa.entities.Departamento;
 import com.arthur.empresa.services.DepartamentoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping(value = "/departamento")
 public class DepartamentoController {
@@ -23,6 +25,8 @@ public class DepartamentoController {
 	@Autowired
 	private DepartamentoService service;
 	
+	@Operation(summary = "Procurar departamento por id",
+			description = "Procura departamentos somente pelo id")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Departamento> procurarPorId(@PathVariable Long id){
 		Departamento dpto = service.procurarPorId(id);
@@ -30,24 +34,32 @@ public class DepartamentoController {
 		return ResponseEntity.status(HttpStatus.OK).body(dpto);
 	}
 	
+	@Operation(summary = "Lista completa de departamentos",
+			description = "Metodo que retorna uma lista com todos os departamentos")
 	@GetMapping
 	public ResponseEntity<List<Departamento>> procurarTodos(){
 		List<Departamento> lista = service.procurarTodos();
 		return ResponseEntity.status(HttpStatus.OK).body(lista);
 	}
 	
+	@Operation(summary = "Adicionando departamentos no sistema",
+			description = "Metodo que adiciona novos departamentos ao sistema")
 	@PostMapping
 	public ResponseEntity<String> criarDepartamento(@RequestBody Departamento dpto){
 		String response = service.criarDepartamento(dpto);
-		return ResponseEntity.status(HttpStatus.OK).body(response);
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
+	@Operation(summary = "Editar departamentos",
+			description = "Método que possibilita a edição das informações dos departamentos")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<String> editarDepartamento(@PathVariable Long id, @RequestBody Departamento dpto){
 		String resposta = service.editarDepartamento(id, dpto);
 		return ResponseEntity.status(HttpStatus.OK).body(resposta);
 	}
 	
+	@Operation(summary = "Deletar departamentos",
+			description = "Método que deleta departamentos do sistema")
 	@DeleteMapping(value= "/{id}")
 	public ResponseEntity<String> deletarDepartamento(@PathVariable Long id){
 		String response = service.deletarDepartamento(id);
