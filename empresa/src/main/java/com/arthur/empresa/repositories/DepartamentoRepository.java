@@ -7,5 +7,7 @@ import com.arthur.empresa.entities.Departamento;
 
 @Repository
 public interface DepartamentoRepository extends JpaRepository<Departamento, Long> {
+	
+	boolean existsByEmail(String email);
 
 }

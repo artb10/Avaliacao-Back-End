@@ -9,6 +9,7 @@ import com.arthur.empresa.entities.Departamento;
 import com.arthur.empresa.exceptions.DadosInvalidosException;
 import com.arthur.empresa.exceptions.NaoEncontradoException;
 import com.arthur.empresa.repositories.DepartamentoRepository;
+import com.arthur.empresa.exceptions.EmailJaExisteException;
 
 @Service
 public class DepartamentoService {
@@ -30,6 +31,10 @@ public class DepartamentoService {
 	
 	public String criarDepartamento(Departamento dpto) {
 		
+		if(repository.existsByEmail(dpto.getEmail())) {
+			throw new EmailJaExisteException("Email já está sendo usado");
+		}
+		
 		if (dpto.getEmail() == null || dpto.getEmail().isBlank()) {
 			throw new DadosInvalidosException("Email é obrigatório.");
 		}
@@ -37,6 +42,12 @@ public class DepartamentoService {
 			throw new DadosInvalidosException("Nome é obrigatório.");
 		}
 		
+		if (dpto.getEmail() == null || dpto.getEmail().isEmpty()) {
+			throw new DadosInvalidosException("Email é obrigatório.");
+		}
+		if(dpto.getNome() == null || dpto.getNome().isEmpty()) {
+			throw new DadosInvalidosException("Nome é obrigatório.");
+		}
 		repository.save(dpto);
 		return "Departamento salvo no sistema";
 		
@@ -45,7 +56,13 @@ public class DepartamentoService {
 	public String editarDepartamento(Long id, Departamento dpto) {
 		Departamento response = procurarPorId(id);
 		
+		
+		
 		if(dpto.getEmail() != null || !dpto.getEmail().isBlank()) {
+			if(repository.existsByEmail(dpto.getEmail())) {
+				throw new EmailJaExisteException("Email já está sendo usado");
+			}
+			
 			response.setEmail(dpto.getEmail());
 		}
 		

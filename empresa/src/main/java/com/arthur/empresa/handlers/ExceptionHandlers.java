@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.arthur.empresa.exceptions.DadosInvalidosException;
 import com.arthur.empresa.exceptions.NaoEncontradoException;
+import com.arthur.empresa.exceptions.EmailJaExisteException;
 
 @ControllerAdvice
 public class ExceptionHandlers {
@@ -26,4 +27,10 @@ public class ExceptionHandlers {
 		return ex.getMessage();
 	}
 	
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ResponseBody
+	@ExceptionHandler(EmailJaExisteException.class)
+	public String conflito(Exception ex) {
+		return ex.getMessage();
+	}
 }

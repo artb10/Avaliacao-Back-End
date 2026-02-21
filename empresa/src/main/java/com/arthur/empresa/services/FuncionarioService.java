@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.arthur.empresa.entities.Funcionario;
 import com.arthur.empresa.exceptions.DadosInvalidosException;
+import com.arthur.empresa.exceptions.EmailJaExisteException;
 import com.arthur.empresa.exceptions.NaoEncontradoException;
 import com.arthur.empresa.repositories.FuncionarioRepository;
 
@@ -30,6 +31,10 @@ public class FuncionarioService {
 	
 	public String criarFuncionario(Funcionario func) {
 		
+		if(repository.existsByEmail(func.getEmail())) {
+			throw new EmailJaExisteException("Email já está sendo usado");
+		}
+		
 		if (func.getEmail() == null || func.getEmail().isBlank()) {
 			throw new DadosInvalidosException("Email é obrigatório.");
 		}
@@ -46,6 +51,9 @@ public class FuncionarioService {
 		Funcionario response = procurarPorId(id);
 		
 		if(func.getEmail() != null || !func.getNome().isBlank()) {
+			if(repository.existsByEmail(func.getEmail())) {
+				throw new EmailJaExisteException("Email já está sendo usado");
+			}
 			response.setEmail(func.getEmail());
 		}
 		
